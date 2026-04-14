@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
+import { buildBtgUrl } from "./btgUrl.js";
 
-const BASE_URL = "https://api.btgpactual.com/iaas-auth";
 const DEFAULT_TIMEOUT = 30_000;
 const TOKEN_VALIDITY_SECONDS = 15 * 60;
 
@@ -69,16 +69,13 @@ export async function getAccessToken(
     return cachedToken;
   }
 
-  const url = `${BASE_URL}/api/v1/authorization/oauth2/accesstoken`;
   const headers = buildHeaders();
   const body = "grant_type=client_credentials";
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers,
-    body,
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl("/iaas-auth/api/v1/authorization/oauth2/accesstoken"),
+    { method: "POST", headers, body, signal: AbortSignal.timeout(timeout) },
+  );
 
   if (response.status === 200) {
     const token = response.headers.get("access_token");

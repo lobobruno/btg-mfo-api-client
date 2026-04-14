@@ -160,3 +160,4 @@ scripts/ralph/*
 !scripts/ralph/ralph.sh
 !scripts/ralph/CLAUDE.md
 .ship-safe
+tasks/*

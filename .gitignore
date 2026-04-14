@@ -147,6 +147,9 @@ vite.config.ts.timestamp-*
 !.env.example
 export_data
 *.json
+!package.json
+!tsconfig.json
+!prd.json
 *.csv
 
 .venv

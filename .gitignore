@@ -155,3 +155,8 @@ export_data
 
 .venv
 venv/
+
+scripts/ralph/*
+!scripts/ralph/ralph.sh
+!scripts/ralph/CLAUDE.md
+.ship-safe

@@ -23,7 +23,12 @@
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build"
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
+    "prepublishOnly": "pnpm run lint && pnpm run build",
+    "release": "tsx scripts/publish.ts"
   },
   "keywords": [
     "btg",
@@ -45,8 +50,8 @@
     "url": "https://github.com/lobobruno/btg-mfo-api-client/issues"
   },
   "homepage": "https://github.com/lobobruno/btg-mfo-api-client#readme",
-  "dependencies": {},
   "devDependencies": {
+    "@biomejs/biome": "^2.4.11",
     "@types/node": "^22.0.0",
     "tsx": "^4.0.0",
     "typescript": "^5.7.0"

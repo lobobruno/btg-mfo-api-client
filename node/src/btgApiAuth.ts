@@ -1,5 +1,5 @@
-import { randomUUID } from "node:crypto";
-import { buildBtgUrl } from "./btgUrl.js";
+import { randomUUID } from 'node:crypto';
+import { buildBtgUrl } from './btgUrl.js';
 
 const DEFAULT_TIMEOUT = 30_000;
 const TOKEN_VALIDITY_SECONDS = 15 * 60;
@@ -14,10 +14,10 @@ export class BtgAuthError extends Error {
   constructor(
     message: string,
     statusCode?: number,
-    responseBody?: Record<string, unknown>,
+    responseBody?: Record<string, unknown>
   ) {
     super(message);
-    this.name = "BtgAuthError";
+    this.name = 'BtgAuthError';
     this.statusCode = statusCode;
     this.responseBody = responseBody;
   }
@@ -34,12 +34,12 @@ function getCredentials(): [string, string] {
   const clientSecret = process.env.BTG_CLIENT_SECRET;
   if (!clientId) {
     throw new BtgAuthError(
-      "Client ID is required. Set BTG_CLIENT_ID environment variable.",
+      'Client ID is required. Set BTG_CLIENT_ID environment variable.'
     );
   }
   if (!clientSecret) {
     throw new BtgAuthError(
-      "Client secret is required. Set BTG_CLIENT_SECRET environment variable.",
+      'Client secret is required. Set BTG_CLIENT_SECRET environment variable.'
     );
   }
   return [clientId, clientSecret];
@@ -47,30 +47,31 @@ function getCredentials(): [string, string] {
 
 function buildBasicAuthHeader(): string {
   const [clientId, clientSecret] = getCredentials();
-  const encoded = Buffer.from(`${clientId}:${clientSecret}`).toString("base64");
+  const encoded = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
   return `Basic ${encoded}`;
 }
 
 function isNonEmptyString(value: unknown): value is string {
-  return typeof value === "string" && value.length > 0;
+  return typeof value === 'string' && value.length > 0;
 }
 
 function extractTokenFromBody(data: Record<string, unknown>): string | null {
-  const value = data["access_token"];
+  const value = data.access_token;
   return isNonEmptyString(value) ? value : null;
 }
 
 function buildHeaders(): Record<string, string> {
   return {
     Authorization: buildBasicAuthHeader(),
-    "x-id-partner-request": randomUUID(),
-    "Content-Type": "application/x-www-form-urlencoded",
+    'x-id-partner-request': randomUUID(),
+    'Content-Type': 'application/x-www-form-urlencoded',
   };
 }
 
-export async function getAccessToken(
-  options?: { timeout?: number; useCache?: boolean },
-): Promise<string> {
+export async function getAccessToken(options?: {
+  timeout?: number;
+  useCache?: boolean;
+}): Promise<string> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const useCache = options?.useCache ?? true;
 
@@ -79,15 +80,15 @@ export async function getAccessToken(
   }
 
   const headers = buildHeaders();
-  const body = "grant_type=client_credentials";
+  const body = 'grant_type=client_credentials';
 
   const response = await fetch(
-    buildBtgUrl("/iaas-auth/api/v1/authorization/oauth2/accesstoken"),
-    { method: "POST", headers, body, signal: AbortSignal.timeout(timeout) },
+    buildBtgUrl('/iaas-auth/api/v1/authorization/oauth2/accesstoken'),
+    { method: 'POST', headers, body, signal: AbortSignal.timeout(timeout) }
   );
 
   if (response.status === 200) {
-    const token = response.headers.get("access_token");
+    const token = response.headers.get('access_token');
     if (token) {
       cachedToken = token;
       tokenExpiry = Date.now() + (TOKEN_VALIDITY_SECONDS - 60) * 1000;
@@ -107,8 +108,8 @@ export async function getAccessToken(
     }
 
     throw new BtgAuthError(
-      "Access token not found in response",
-      response.status,
+      'Access token not found in response',
+      response.status
     );
   }
 
@@ -120,7 +121,7 @@ export async function getAccessToken(
   }
 
   const errorMessage =
-    typeof errorBody.message === "string"
+    typeof errorBody.message === 'string'
       ? errorBody.message
       : `BTG Auth API Error (HTTP ${response.status})`;
 

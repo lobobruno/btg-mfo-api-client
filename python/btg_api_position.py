@@ -20,6 +20,7 @@ from typing import TypedDict, NotRequired
 import httpx
 
 from btg_api_utils import build_headers, handle_response
+from _response import validate_response
 
 # =============================================================================
 # Configuration
@@ -998,8 +999,10 @@ def get_position_by_account_and_date(
     body: PositionDateRequest = {"date": date}
 
     with httpx.Client(timeout=timeout) as client:
-        response = client.post(url, headers=headers, json=body)
-        return handle_response(response)
+        return validate_response(
+            client.post(url, headers=headers, json=body),
+            [],
+        )
 
 
 def get_position_unit_price_by_account(
@@ -1032,8 +1035,10 @@ def get_position_unit_price_by_account(
         body["endDate"] = end_date
 
     with httpx.Client(timeout=timeout) as client:
-        response = client.post(url, headers=headers, json=body)
-        handle_response(response)
+        validate_response(
+            client.post(url, headers=headers, json=body),
+            [],
+        )
 
 
 def get_position_unit_price_history_by_account(
@@ -1148,8 +1153,10 @@ def get_position_unit_price_by_account_v2(
     }
 
     with httpx.Client(timeout=timeout) as client:
-        response = client.post(url, headers=headers, json=body)
-        handle_response(response)
+        validate_response(
+            client.post(url, headers=headers, json=body),
+            [],
+        )
 
 
 def get_position_unit_price_history_by_account_v2(
@@ -1224,8 +1231,10 @@ def get_position_unit_price_history_by_accounts_v2(
     body: FixedIncomeHistoryRequest = {"accounts": accounts}
 
     with httpx.Client(timeout=timeout) as client:
-        response = client.post(url, headers=headers, json=body)
-        handle_response(response)
+        validate_response(
+            client.post(url, headers=headers, json=body),
+            [],
+        )
 
 
 # =============================================================================

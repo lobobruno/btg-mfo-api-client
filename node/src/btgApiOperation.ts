@@ -1,6 +1,5 @@
 import { buildHeaders, handleResponse } from "./btgApiUtils.js";
-
-const BASE_URL = "https://api.btgpactual.com/iaas-api-operation";
+import { buildBtgUrl } from "./btgUrl.js";
 const DEFAULT_TIMEOUT = 30_000;
 
 export interface OperationHistoryPartnerRequest {
@@ -21,14 +20,12 @@ export async function getMovementsByAccountFull(
 ): Promise<void> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const fetchCA = options?.fetchCurrentAccount ?? true;
-  const url = `${BASE_URL}/api/v1/operation-history/full/${accountNumber}`;
   const headers = await buildOperationHeaders(fetchCA);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl(`/iaas-api-operation/api/v1/operation-history/full/${accountNumber}`),
+    { method: "GET", headers, signal: AbortSignal.timeout(timeout) },
+  );
   await handleResponse(response);
 }
 
@@ -38,14 +35,12 @@ export async function getMovementsByAccountMonthly(
 ): Promise<void> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const fetchCA = options?.fetchCurrentAccount ?? true;
-  const url = `${BASE_URL}/api/v1/operation-history/monthly/${accountNumber}`;
   const headers = await buildOperationHeaders(fetchCA);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl(`/iaas-api-operation/api/v1/operation-history/monthly/${accountNumber}`),
+    { method: "GET", headers, signal: AbortSignal.timeout(timeout) },
+  );
   await handleResponse(response);
 }
 
@@ -55,14 +50,12 @@ export async function getMovementsByAccountWeekly(
 ): Promise<void> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const fetchCA = options?.fetchCurrentAccount ?? true;
-  const url = `${BASE_URL}/api/v1/operation-history/weekly/${accountNumber}`;
   const headers = await buildOperationHeaders(fetchCA);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl(`/iaas-api-operation/api/v1/operation-history/weekly/${accountNumber}`),
+    { method: "GET", headers, signal: AbortSignal.timeout(timeout) },
+  );
   await handleResponse(response);
 }
 
@@ -72,16 +65,13 @@ export async function getMovementsByPartnerAndPeriod(
 ): Promise<void> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const fetchCA = options?.fetchCurrentAccount ?? true;
-  const url = `${BASE_URL}/api/v1/operation-history/period`;
   const headers = await buildOperationHeaders(fetchCA);
   const body: OperationHistoryPartnerRequest = { monthRef };
 
-  const response = await fetch(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl("/iaas-api-operation/api/v1/operation-history/period"),
+    { method: "POST", headers, body: JSON.stringify(body), signal: AbortSignal.timeout(timeout) },
+  );
   await handleResponse(response);
 }
 
@@ -90,14 +80,12 @@ export async function getMovementsByPartnerMonthly(
 ): Promise<void> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const fetchCA = options?.fetchCurrentAccount ?? true;
-  const url = `${BASE_URL}/api/v1/operation-history/monthly`;
   const headers = await buildOperationHeaders(fetchCA);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl("/iaas-api-operation/api/v1/operation-history/monthly"),
+    { method: "GET", headers, signal: AbortSignal.timeout(timeout) },
+  );
   await handleResponse(response);
 }
 
@@ -106,13 +94,11 @@ export async function getMovementsByPartnerWeekly(
 ): Promise<void> {
   const timeout = options?.timeout ?? DEFAULT_TIMEOUT;
   const fetchCA = options?.fetchCurrentAccount ?? true;
-  const url = `${BASE_URL}/api/v1/operation-history/weekly`;
   const headers = await buildOperationHeaders(fetchCA);
 
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-    signal: AbortSignal.timeout(timeout),
-  });
+  const response = await fetch(
+    buildBtgUrl("/iaas-api-operation/api/v1/operation-history/weekly"),
+    { method: "GET", headers, signal: AbortSignal.timeout(timeout) },
+  );
   await handleResponse(response);
 }

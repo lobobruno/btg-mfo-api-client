@@ -20,6 +20,7 @@ from typing import TypedDict
 import httpx
 
 from btg_api_utils import build_headers, handle_response
+from _response import validate_response
 
 # =============================================================================
 # Configuration
@@ -155,8 +156,10 @@ def get_movements_by_partner_and_period(
     body: OperationHistoryPartnerRequest = {"monthRef": month_ref}
 
     with httpx.Client(timeout=timeout) as client:
-        response = client.post(url, headers=headers, json=body)
-        handle_response(response)
+        validate_response(
+            client.post(url, headers=headers, json=body),
+            [],
+        )
 
 
 def get_movements_by_partner_monthly(

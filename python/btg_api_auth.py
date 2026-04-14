@@ -21,10 +21,7 @@ import uuid
 from typing import TypedDict
 
 import httpx
-from btg_api_utils import BTGAPIError
 from dotenv import load_dotenv
-
-from _response import validate_response
 
 # Load environment variables from .env file
 load_dotenv()
@@ -145,6 +142,9 @@ def get_access_token(
     body = "grant_type=client_credentials"
 
     with httpx.Client(timeout=timeout) as client:
+        from _response import validate_response
+        from btg_api_utils import BTGAPIError
+
         try:
             data = validate_response(
                 client.post(url, headers=headers, content=body),

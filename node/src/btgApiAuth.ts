@@ -51,6 +51,15 @@ function buildBasicAuthHeader(): string {
   return `Basic ${encoded}`;
 }
 
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0;
+}
+
+function extractTokenFromBody(data: Record<string, unknown>): string | null {
+  const value = data["access_token"];
+  return isNonEmptyString(value) ? value : null;
+}
+
 function buildHeaders(): Record<string, string> {
   return {
     Authorization: buildBasicAuthHeader(),
@@ -87,10 +96,11 @@ export async function getAccessToken(
 
     try {
       const data = (await response.json()) as Record<string, unknown>;
-      if (typeof data.access_token === "string") {
-        cachedToken = data.access_token;
+      const bodyToken = extractTokenFromBody(data);
+      if (bodyToken) {
+        cachedToken = bodyToken;
         tokenExpiry = Date.now() + (TOKEN_VALIDITY_SECONDS - 60) * 1000;
-        return data.access_token;
+        return bodyToken;
       }
     } catch {
       // fall through

@@ -1,3 +1,97 @@
+## Codebase Patterns
+- Root `.gitignore` has `*.json` — must add negation patterns (`!package.json`, `!tsconfig.json`, `!tsconfig.*.json`) to commit JSON files
+- Node package at `./node` relative to repo root, uses ESM (`"type": "module"`)
+- TypeScript strict mode with NodeNext module resolution
+- All TS imports use `.js` extension (NodeNext requires it)
+- API field names preserve wire format casing, function params are camelCase
+- Token cache uses Date.now() in milliseconds (Python uses time.time() in seconds)
+- Operation endpoints add `fetch_current_account: "no_value"` header when fetchCurrentAccount is true
+- Files outside `src/` (like test.ts) need a separate tsconfig with `rootDir: "."`
+
 # Ralph Progress Log
 Started: Mon Apr 13 09:23:28 PM -03 2026
+---
+
+## 2026-04-13 - US-001
+- Initialized npm package scaffold at `./node` with package.json, tsconfig.json, .gitignore, src/index.ts
+- Updated root `.gitignore` to allow package.json, tsconfig.json, prd.json (was blocked by `*.json` pattern)
+- Installed devDependencies: typescript, tsx, @types/node (zero runtime deps)
+- Files changed: node/package.json, node/tsconfig.json, node/.gitignore, node/src/index.ts, .gitignore, scripts/ralph/prd.json
+- Skills/agents used: None (simple scaffold)
+- **Learnings for future iterations:**
+  - Root `.gitignore` blocks `*.json` globally — always check gitignore when adding new JSON files
+  - `npx tsc --noEmit` passes with just an empty `export {}` in src/index.ts
+  - Working directory for npm commands should be `node/` subdirectory
+---
+
+## 2026-04-13 - US-002
+- Ported btg_api_auth.py to node/src/btgApiAuth.ts
+- Files changed: node/src/btgApiAuth.ts
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - Token cache uses Date.now() in ms (not seconds) — multiply TOKEN_VALIDITY by 1000
+  - Python uses httpx; TS uses native fetch with AbortSignal.timeout()
+---
+
+## 2026-04-13 - US-003
+- Ported btg_api_utils.py to node/src/btgApiUtils.ts
+- Files changed: node/src/btgApiUtils.ts
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - Python's `**extra_headers` kwargs maps to an optional `Record<string, string>` param
+  - Error message extraction follows same precedence: errors[0].message > meta.globalErrors[0].message > message
+---
+
+## 2026-04-13 - US-004
+- Ported all ~70 TypedDicts from btg_api_position.py to TypeScript interfaces
+- Files changed: node/src/btgApiPositionTypes.ts (877 lines)
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - NotRequired[X] in Python maps to `field?: X` in TypeScript
+  - Python `Error` TypedDict renamed to `BtgError` to avoid global clash
+  - Field names preserved as-is from the wire format (mixed casing is intentional)
+---
+
+## 2026-04-13 - US-005
+- Ported all 10 position API functions to node/src/btgApiPosition.ts
+- Files changed: node/src/btgApiPosition.ts
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - POST endpoints send body as JSON.stringify(), GET endpoints have no body
+  - V2 endpoints follow same pattern but under /api/v2/ path
+---
+
+## 2026-04-13 - US-006
+- Ported all 6 operation API functions to node/src/btgApiOperation.ts
+- Files changed: node/src/btgApiOperation.ts
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - fetch_current_account header pattern: add `{ fetch_current_account: "no_value" }` when true
+  - Extracted shared helper `buildOperationHeaders()` to reduce repetition
+---
+
+## 2026-04-13 - US-007
+- Updated node/src/index.ts with barrel exports for all modules
+- Files changed: node/src/index.ts
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - Use `type` keyword for type-only exports in barrel files
+  - `npm run build` produces .js and .d.ts files in dist/
+---
+
+## 2026-04-13 - US-008
+- Created node/test.ts mirroring python/test.py with TypeScript
+- Created node/tsconfig.test.json for typechecking test.ts separately (outside src/)
+- Files changed: node/test.ts, node/tsconfig.test.json, .gitignore
+- Skills/agents used: None
+- **Learnings for future iterations:**
+  - test.ts lives outside src/ so needs separate tsconfig with rootDir: "."
+  - Root .gitignore blocks *.json — added `!tsconfig.*.json` negation
+  - Operation endpoints return void (async webhook responses)
+---
+
+## 2026-04-13 - US-009
+- Created node/README.md with setup, usage, and run instructions
+- Files changed: node/README.md
+- Skills/agents used: None
 ---

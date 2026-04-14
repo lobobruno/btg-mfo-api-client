@@ -17,7 +17,7 @@
         "Typecheck passes"
       ],
       "priority": 1,
-      "passes": false,
+      "passes": true,
       "notes": ""
     },
     {
@@ -37,7 +37,7 @@
         "Typecheck passes"
       ],
       "priority": 2,
-      "passes": false,
+      "passes": true,
       "notes": "Depends on US-001 scaffold"
     },
     {
@@ -54,7 +54,7 @@
         "Typecheck passes"
       ],
       "priority": 3,
-      "passes": false,
+      "passes": true,
       "notes": "Depends on US-002 (uses getAccessToken)"
     },
     {
@@ -70,7 +70,7 @@
         "Typecheck passes"
       ],
       "priority": 4,
-      "passes": false,
+      "passes": true,
       "notes": "Large story (~70 interfaces) but mechanical — all type definitions, no logic. Consult python/docs/API-POSITION.yml as source of truth."
     },
     {
@@ -86,7 +86,7 @@
         "Typecheck passes"
       ],
       "priority": 5,
-      "passes": false,
+      "passes": true,
       "notes": "Depends on US-003 (utils) and US-004 (types)"
     },
     {
@@ -101,7 +101,7 @@
         "Typecheck passes"
       ],
       "priority": 6,
-      "passes": false,
+      "passes": true,
       "notes": "Depends on US-003 (utils)"
     },
     {
@@ -116,7 +116,7 @@
         "Typecheck passes"
       ],
       "priority": 7,
-      "passes": false,
+      "passes": true,
       "notes": "Depends on all source modules (US-002 through US-006)"
     },
     {
@@ -133,7 +133,7 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": false,
+      "passes": true,
       "notes": "Depends on US-007 (barrel export)"
     },
     {
@@ -148,7 +148,7 @@
         "Kept short — under ~40 lines"
       ],
       "priority": 9,
-      "passes": false,
+      "passes": true,
       "notes": "No code dependencies — just documentation"
     }
   ]

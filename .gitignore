@@ -149,6 +149,7 @@ export_data
 *.json
 !package.json
 !tsconfig.json
+!tsconfig.*.json
 !prd.json
 *.csv
 

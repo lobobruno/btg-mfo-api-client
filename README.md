@@ -3,6 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./node/LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](./node)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue.svg)](./python)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?logo=buy-me-a-coffee)](https://buymeacoffee.com/brunowlf)
 
 TypeScript and Python clients for the **BTG Pactual MFO APIs** (Auth, Position, Operation).
 
@@ -95,6 +96,27 @@ Modules of interest:
 
 See [SECURITY.md](./SECURITY.md) for the threat model, covered CWEs, and how to report vulnerabilities privately.
 
+## 💛 Support
+
+If you find this project helpful, please give it a star on GitHub!
+
+[![GitHub stars](https://img.shields.io/github/stars/lobobruno/btg-mfo-api-client?style=social)](https://github.com/lobobruno/btg-mfo-api-client)
+
+If you find this package useful, consider buying me a beer!
+
+<a href="https://buymeacoffee.com/brunowlf" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50"></a>
+
+## 👤 Author
+
+**Bruno Lobo**
+
+[![GitHub](https://img.shields.io/badge/GitHub-@lobobruno-181717?style=flat&logo=github&logoColor=white)](https://github.com/lobobruno)
+[![X (Twitter)](https://img.shields.io/badge/X-@brunowlf-000000?style=flat&logo=x&logoColor=white)](https://x.com/brunowlf)
+
 ## 📄 License
 
 MIT © Bruno Lobo — see [node/LICENSE](./node/LICENSE).
+
+---
+
+Made with :heart: in [Brazil](https://github.com/lobobruno)

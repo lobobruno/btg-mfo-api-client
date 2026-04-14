@@ -5,6 +5,7 @@
 [![Node](https://img.shields.io/badge/node-%3E%3D20-brightgreen.svg)](#requirements)
 [![GitHub Issues](https://img.shields.io/github/issues/lobobruno/btg-mfo-api-client.svg)](https://github.com/lobobruno/btg-mfo-api-client/issues)
 [![GitHub Stars](https://img.shields.io/github/stars/lobobruno/btg-mfo-api-client.svg)](https://github.com/lobobruno/btg-mfo-api-client/stargazers)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?logo=buy-me-a-coffee)](https://buymeacoffee.com/brunowlf)
 
 ## Table of Contents
 
@@ -15,7 +16,10 @@
 - 🔐 [Authentication](#-authentication)
 - 📚 [Usage & Examples](#-usage--examples)
 - 🧱 [API](#-api)
-- 📣 [Feedback & Contact](#-feedback--contact)
+- 💛 [Support](#-support)
+- 👤 [Author](#-author)
+- 🔗 [Links](#-links)
+- 📄 [License](#-license)
 
 ## 💡 Description
 
@@ -140,12 +144,33 @@ try {
 
 Every response is fully typed — see the exported types in `btgApiPositionTypes` (e.g. `Position`, `PositionData`, `InvestmentFund`, `FixedIncome`, `Equities`, `Derivative`, `CryptoAsset`, and many more).
 
-## 📣 Feedback & Contact
+## 💛 Support
 
-Bugs, feature requests, and contributions welcome at [github.com/lobobruno/btg-mfo-api-client](https://github.com/lobobruno/btg-mfo-api-client/issues).
+If you find this project helpful, please give it a star on GitHub!
 
-Reach me on X/Twitter: [@brunowlf](https://twitter.com/brunowlf).
+[![GitHub stars](https://img.shields.io/github/stars/lobobruno/btg-mfo-api-client?style=social)](https://github.com/lobobruno/btg-mfo-api-client)
+
+If you find this package useful, consider buying me a beer!
+
+<a href="https://buymeacoffee.com/brunowlf" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="50"></a>
+
+## 👤 Author
+
+**Bruno Lobo**
+
+[![GitHub](https://img.shields.io/badge/GitHub-@lobobruno-181717?style=flat&logo=github&logoColor=white)](https://github.com/lobobruno)
+[![X (Twitter)](https://img.shields.io/badge/X-@brunowlf-000000?style=flat&logo=x&logoColor=white)](https://x.com/brunowlf)
+
+## 🔗 Links
+
+- [GitHub Repository](https://github.com/lobobruno/btg-mfo-api-client)
+- [npm Package](https://www.npmjs.com/package/btg-mfo-api-client)
+- [Issue Tracker](https://github.com/lobobruno/btg-mfo-api-client/issues)
+
+## 📄 License
+
+MIT License — see the [LICENSE](./LICENSE) file for details.
 
 ---
 
-Licensed under the [MIT License](./LICENSE).
+Made with :heart: in [Brazil](https://github.com/lobobruno)

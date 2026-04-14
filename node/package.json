@@ -1,6 +1,6 @@
 {
   "name": "btg-mfo-api-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript client for the BTG Pactual MFO APIs (Auth, Position, and Operation).",
   "type": "module",
   "engines": {

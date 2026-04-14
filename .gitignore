@@ -129,6 +129,8 @@ dist
 # pnpm
 .pnpm-store
 
+.claude
+
 # yarn v3
 .pnp.*
 .yarn/*
@@ -161,3 +163,5 @@ scripts/ralph/*
 !scripts/ralph/CLAUDE.md
 .ship-safe
 tasks/*
+
+.claude/

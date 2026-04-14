@@ -21,7 +21,10 @@ import uuid
 from typing import TypedDict
 
 import httpx
+from btg_api_utils import BTGAPIError
 from dotenv import load_dotenv
+
+from _response import validate_response
 
 # Load environment variables from .env file
 load_dotenv()
@@ -142,48 +145,24 @@ def get_access_token(
     body = "grant_type=client_credentials"
 
     with httpx.Client(timeout=timeout) as client:
-        response = client.post(url, headers=headers, content=body)
-
-        if response.status_code == 200:
-            # Token is in the response header
-            token = response.headers.get("access_token")
-            if token:
-                # Cache the token
-                _cached_token = token
-                _token_expiry = time.time() + TOKEN_VALIDITY_SECONDS - 60  # 1 min buffer
-                return token
-
-            # Try response body as fallback
-            try:
-                data = response.json()
-                if "access_token" in data:
-                    token = data["access_token"]
-                    _cached_token = token
-                    _token_expiry = time.time() + TOKEN_VALIDITY_SECONDS - 60
-                    return token
-            except Exception:
-                pass
-
-            raise BTGAuthError(
-                "Access token not found in response",
-                status_code=response.status_code
-            )
-
-        # Handle errors
         try:
-            error_body = response.json()
-        except Exception:
-            error_body = {"message": response.text}
+            data = validate_response(
+                client.post(url, headers=headers, content=body),
+                ["access_token"],
+            )
+        except BTGAPIError as exc:
+            raise BTGAuthError(
+                message=str(exc),
+                status_code=exc.status_code,
+                response_body=exc.response_body,
+            ) from exc
 
-        error_message = f"BTG Auth API Error (HTTP {response.status_code})"
-        if "message" in error_body:
-            error_message = error_body["message"]
-
-        raise BTGAuthError(
-            message=error_message,
-            status_code=response.status_code,
-            response_body=error_body
-        )
+        token = data["access_token"]
+        if not isinstance(token, str) or not token:
+            raise BTGAuthError("Access token is not a valid string")
+        _cached_token = token
+        _token_expiry = time.time() + TOKEN_VALIDITY_SECONDS - 60
+        return token
 
 
 def clear_token_cache() -> None:

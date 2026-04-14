@@ -3,7 +3,7 @@ from btg_api_operation import get_movements_by_account_full, get_movements_by_pa
 import json
 
 if False:
-    response = get_position_by_account_and_date("004209281", "2025-11-28")
+    response = get_position_by_account_and_date("001234567", "2025-11-28")
 
     # save the response to json file
     with open('get_position_by_account_and_date.json', 'w') as f:
@@ -11,7 +11,7 @@ if False:
 
 
 if False:
-    response = get_movements_by_account_full("000174168")
+    response = get_movements_by_account_full("001234567")
 
     with open('get_movements_by_account_full.json', 'w') as f:
         json.dump(response, f)
